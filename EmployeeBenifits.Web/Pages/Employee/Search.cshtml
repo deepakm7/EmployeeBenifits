@@ -1,0 +1,67 @@
+﻿@page "/employee/search/"
+@model EmployeeBenifits.Web.Pages.Employee.SearchModel
+@{
+    ViewData["Title"] = "Employee Benifits";
+}
+
+<form id="employeeSearchForm" method="post" action="">
+    <div class="container">        
+        <div class="row">            
+            <div class="col-sm-3">
+                <a href="/employee/0" class="btn btn-secondary btn-sm" title="Add New Employee">Add New Employee</a>             
+            </div>
+        </div>
+        <div class="row mt-3"></div>
+    </div>
+</form>
+
+<div class="table-responsive">
+    <table id="searchDT" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th></th>               
+            </tr>
+        </thead>
+    </table>
+</div>
+@section scripts{
+    <script>
+        $("#searchDT").DataTable({
+            pageLength: 25,
+            columns: [
+                { data: 'firstName' },
+                { data: 'lastName' },               
+                {
+					data: 'employeeId',
+					sortable: false,
+					render: function (data) {
+                        return '<div class="text-center"><a class="btn btn-info btn-sm" href="/employee/results/' + data + '"><i class="fas fa-folder-open" aria-hidden="true"></i>Preview Benifits</a></div>';
+				    }
+				}
+                ],
+            });
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                async: false,
+                cache: false,
+                url: "?handler=List",
+                dataType: "json",
+                success: function (data) {
+                    populateDataTable('#searchDT', data);
+                }
+            });
+            function populateDataTable(dataTableId, result) {
+                var dt = $(dataTableId).DataTable();
+                dt.clear();
+                for (var ii = 0; ii < result.length; ii++) {
+                    dt.row.add(result[ii]);
+                }
+                dt.draw();
+            }
+        });
+    </script>
+}

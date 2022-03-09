@@ -1,0 +1,41 @@
+﻿@page "/employee/{id:int?}/"
+@model EmployeeBenifits.Web.Pages.Employee.EmployeeModel
+@{
+    ViewData["Title"] = "Add New Employee";
+}
+<form id="employeeDetailForm" method="post" action="">
+    @Html.HiddenFor(x => x.DetailModel.EmployeeId)
+    <div class="container">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <h4>Add New Employee</h4>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DetailModel.FirstName"></label>
+            <input asp-for="DetailModel.FirstName" class="form-control" />
+            <span asp-validation-for="DetailModel.FirstName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DetailModel.LastName"></label>
+            <input asp-for="DetailModel.LastName" class="form-control" />
+            <span asp-validation-for="DetailModel.LastName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DetailModel.Salary"></label>
+            <input asp-for="DetailModel.Salary" type="number" class="form-control" />
+            <span asp-validation-for="DetailModel.Salary" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DetailModel.NumberofDependents"></label>
+            <select asp-for="DetailModel.NumberofDependents" asp-items="Model.DependentsCount" class="custom-select" >
+                <option value="" selected="selected">Select</option>
+            </select>
+            <span asp-validation-for="DetailModel.NumberofDependents" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Next</button>
+    </div>
+</form>

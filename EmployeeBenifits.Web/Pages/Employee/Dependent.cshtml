@@ -1,0 +1,38 @@
+﻿@page "/employee/{id:int}/dependent"
+@model EmployeeBenifits.Web.Pages.Employee.DependentModel
+@{
+    ViewData["Title"] = "Add Dependent Details";
+}
+
+<form id="dependentDetailForm" method="post" action="">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.EmployeeId)
+    <h5>Add Dependent Details</h5>
+    @for (int i = 0; i <= Model.DetailModel.Count - 1; i++)
+    {
+        @Html.HiddenFor(x => x.DetailModel[i].DependentId)
+        <div class="row">
+            <div class="col-md-3">
+                <label asp-for="DetailModel[i].FirstName"></label>
+                <input asp-for="DetailModel[i].FirstName" class="form-control" />
+                <span asp-validation-for="DetailModel[i].FirstName" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="DetailModel[i].LastName"></label>
+                <input asp-for="DetailModel[i].LastName" class="form-control" />
+                <span asp-validation-for="DetailModel[i].LastName" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="DetailModel[i].DependentTypeId"></label>
+                <select asp-for="DetailModel[i].DependentTypeId" asp-items="Model.DependentTypeList" class="custom-select">
+                    <option value="" selected="selected">Select</option>
+                </select>
+                <span asp-validation-for="DetailModel[i].DependentTypeId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="mt-3"></div>
+    }
+    <div class="row">
+        <button class="btn btn-primary" type="submit">Preview Benifits</button>
+    </div>
+</form>

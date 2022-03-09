@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Server=(LocalDB)\MSSQLLocalDB;Database=EmployeeBenefits;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Model -Force -Context Context -NoPluralize -Project EmployeeBenefits.Data -NoOnConfiguring
